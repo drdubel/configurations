@@ -1,6 +1,6 @@
 # -*- zshrc -*-
-# Michal Suszko
-# $Id: .zshrc,v 1.4 2005/04/08 12:40:19 dry Exp dry $
+# Antoni Suszko
+# $Id: .zshrc,v 1.4 2022/10/01 16:26 drdubel Exp drdubel $
 #
 # Environment variables
 
