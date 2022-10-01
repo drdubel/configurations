@@ -1,8 +1,7 @@
 # -*- zshrc -*-
 # Antoni Suszko
-# $Id: .zshrc,v 1.4 2022/10/01 16:26 drdubel Exp drdubel $
+# $Id: .zshrc,v 1.0 2022/10/01 16:26 drdubel
 #
-# Environment variables
 
 case `uname` in
 'SunOS')
