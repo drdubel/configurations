@@ -8,8 +8,8 @@ format = "$directory$character"
 right_format = "$git_branch$git_status $all"
 
 [character]
-success_symbol = " [](bold green)"
-error_symbol = " [](bold red)"
+success_symbol = " [❯](bold green)"
+error_symbol = " [❯](bold red)"
 
 [directory]
 format = "[$path]($style)"
