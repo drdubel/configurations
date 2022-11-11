@@ -72,12 +72,17 @@ xterm*|rxvt*)
    ;;
 esac
 
-export PROMPT='%F{blue}%m%f%# '
+# oh my zsh config
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+
 export EDITOR='nvim'
 export LC_ALL="en_GB.UTF-8"
 export LANG="en_GB.UTF-8"
 export LC_CTYPE="pl_PL.UTF-8"
-export RPROMPT="%~"
 export MAILDIR=${HOME}/Mail/inbox/
 export MAIL=$MAILDIR
 export LESSCHARSET=utf-8
@@ -103,7 +108,7 @@ alias vim=nvim
 
 export VAULT_CLI_NO_COLOR=1
 
-source <("$HOME/.cargo/bin/starship" init zsh --print-full-init)
+# source <("$HOME/.cargo/bin/starship" init zsh --print-full-init)
 # Completion
 autoload -Uz compinit
 autoload -U +X bashcompinit
@@ -113,3 +118,10 @@ complete -F __start_kubectl k
 complete -o nospace -C terraform terraform
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
+
+source <(antibody init)
+
+antibody bundle < ~/.zsh_plugins.txt
+eval "$(starship init zsh)"
+alias ls='colorls'
+bindkey -s '^@' 'clear^M'
