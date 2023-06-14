@@ -79,6 +79,7 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
+export PATH="$PATH:/home/antek/development/flutter/bin" 
 export EDITOR='nvim'
 export LC_ALL="en_GB.UTF-8"
 export LANG="en_GB.UTF-8"
@@ -87,6 +88,11 @@ export MAILDIR=${HOME}/Mail/inbox/
 export MAIL=$MAILDIR
 export LESSCHARSET=utf-8
 export PAGER=less
+export JAVA_HOME="/home/antek/.local/share/JetBrains/Toolbox/apps/AndroidStudio/ch-0/221.6008.13.2211.9619390/jbr/" 
+export MultiMC=/home/antek/.local/share/multimc/MultiMC
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+export PATH="$PATH":"$HOME/programowanie/szkola/build"
+export PATH="$PATH":"$HOME/programowanie/TenAPI/Protobuf/bin"
 
 bindkey -e
 bindkey "^U" vi-kill-line
@@ -95,6 +101,8 @@ export GOPATH=$HOME/go
 export PATH=$HOME/env/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/local/bin:$PATH:$HOME/.krew/bin
 export FZF_DEFAULT_OPTS="--color=light"
 export XDG_CONFIG_HOME=$HOME/.config
+export PATH="/usr/local/cuda-11.8/bin${PATH:+:${PATH}}"
+export LD_LIBRARY_PATH="/usr/local/cuda-11.8/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 setopt AUTOLIST
 
@@ -123,5 +131,10 @@ source <(antibody init)
 
 antibody bundle < ~/.zsh_plugins.txt
 eval "$(starship init zsh)"
-alias ls='colorls'
-bindkey -s '^@' 'clear^M'
+bindkey -s '^ ' 'clear^M'
+
+export PATH=$PATH:/home/antek/.nexustools
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
