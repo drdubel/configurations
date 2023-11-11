@@ -47,42 +47,18 @@ setopt NOBEEP
 setopt AUTOCD
 
 
-b_esc=`print -Pn "\e]0;"`
-e_esc=`print -Pn "\a"`
-
-case "${TERM}" in
-screen)
-    export PROMPT="%{${b_esc}$WINDOW %n@%m:%/${e_esc}%}%m%# "
-    preexec () {
-        print -Pn "\e]0;$WINDOW %n@%m:%/: ";
-        print -RPn "%60>...>${(V)1//\%/%%}";
-        print -Pn "\a";
-    }
-    ;;
-xterm*|rxvt*)
-    export PROMPT="%{${b_esc}%n@%m:%/${e_esc}%}%m%# "
-    preexec () {
-        print -Pn "\e]0;%n@%m:%/: ";
-        print -RPn "%60>...>${(V)1//\%/%%}";
-        print -Pn "\a";
-    }
-    ;;
-*)
-   export PROMPT="%m%# "
-   ;;
-esac
 
 # oh my zsh config
 
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-plugins=(git)
-source $ZSH/oh-my-zsh.sh
+#export ZSH="$HOME/.oh-my-zsh"
+#ZSH_THEME="robbyrussell"
+#plugins=(git)
+#source $ZSH/oh-my-zsh.sh
 
 export PATH="$PATH:/home/antek/development/flutter/bin" 
 export EDITOR='nvim'
-export LC_ALL="en_GB.UTF-8"
-export LANG="en_GB.UTF-8"
+export LC_ALL="C.UTF-8"
+export LANG="C.UTF-8"
 export LC_CTYPE="pl_PL.UTF-8"
 export MAILDIR=${HOME}/Mail/inbox/
 export MAIL=$MAILDIR
@@ -101,16 +77,15 @@ export GOPATH=$HOME/go
 export PATH=$HOME/env/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/local/bin:$PATH:$HOME/.krew/bin
 export FZF_DEFAULT_OPTS="--color=light"
 export XDG_CONFIG_HOME=$HOME/.config
-export PATH="/usr/local/cuda-11.8/bin${PATH:+:${PATH}}"
-export LD_LIBRARY_PATH="/usr/local/cuda-11.8/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+export PATH="/opt/cuda/bin${PATH:+:${PATH}}"
+export LD_LIBRARY_PATH="/opt/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 setopt AUTOLIST
 
 # Aliases
 
-alias lsd='ls -d *(-/DN)'
-alias ag="ag --color-line-number '1;14' --color-path '1;34' --color-match '2;31'"
-alias k=kubectl
+alias l='ls -hlAt'
+alias lr='ls -hlArt'
 alias vi=nvim
 alias vim=nvim
 
@@ -135,6 +110,27 @@ bindkey -s '^ ' 'clear^M'
 
 export PATH=$PATH:/home/antek/.nexustools
 
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export NVM_DIR="$HOME/.config/nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+bindkey -e
+
+bindkey    "^[[7~"        beginning-of-line
+bindkey "^[[8~"        end-of-line
+bindkey    "\e[2~"        overwrite-mode
+bindkey    "\e[3~"        delete-char
+bindkey "^[Od"        backward-word                 # rxvt
+bindkey    "\e[1;5D"    backward-word
+bindkey "^[Oc"        forward-word                # rxvt
+bindkey    "\e[1;5C"    forward-word
+bindkey "^[[A"         history-search-backward
+bindkey "^[[B"        history-search-forward
+bindkey    "\e[5~"        history-beginning-search-backward
+bindkey    "\e[6~"        history-beginning-search-forward
+bindkey    "^W"        backward-delete-word
+export PATH=/var/tmp/context/tex/texmf-linux-64/bin:/var/tmp/context/tex/texmf-linux-64/bin:/opt/cuda/bin:/home/antek/env/bin:/home/antek/go/bin:/home/antek/.cargo/bin:/home/antek/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/opt/cuda/bin:/opt/cuda/nsight_compute:/opt/cuda/nsight_systems/bin:/opt/flutter/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/antek/.local/share/JetBrains/Toolbox/scripts:/home/antek/.cargo/bin:/home/antek/go/bin:/home/antek/development/flutter/bin:/home/antek/.pub-cache/bin:/home/antek/programowanie/szkola/build:/home/antek/programowanie/TenAPI/Protobuf/bin:/home/antek/.krew/bin:/home/antek/.nexustools
+bindkey "^\\" "pkill -9 !!:0"
+
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
