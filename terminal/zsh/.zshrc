@@ -115,20 +115,16 @@ export PATH=$PATH:/home/antek/.nexustools
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 bindkey -e
 
-bindkey    "^[[7~"        beginning-of-line
-bindkey "^[[8~"        end-of-line
-bindkey    "\e[2~"        overwrite-mode
-bindkey    "\e[3~"        delete-char
-bindkey "^[Od"        backward-word                 # rxvt
-bindkey    "\e[1;5D"    backward-word
-bindkey "^[Oc"        forward-word                # rxvt
-bindkey    "\e[1;5C"    forward-word
-bindkey "^[[A"         history-search-backward
-bindkey "^[[B"        history-search-forward
-bindkey    "\e[5~"        history-beginning-search-backward
-bindkey    "\e[6~"        history-beginning-search-forward
-bindkey    "^W"        backward-delete-word
-export PATH=/var/tmp/context/tex/texmf-linux-64/bin:/var/tmp/context/tex/texmf-linux-64/bin:/opt/cuda/bin:/home/antek/env/bin:/home/antek/go/bin:/home/antek/.cargo/bin:/home/antek/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/opt/cuda/bin:/opt/cuda/nsight_compute:/opt/cuda/nsight_systems/bin:/opt/flutter/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/antek/.local/share/JetBrains/Toolbox/scripts:/home/antek/.cargo/bin:/home/antek/go/bin:/home/antek/development/flutter/bin:/home/antek/.pub-cache/bin:/home/antek/programowanie/szkola/build:/home/antek/programowanie/TenAPI/Protobuf/bin:/home/antek/.krew/bin:/home/antek/.nexustools
+bindkey     "^[[H"   beginning-of-line
+bindkey     "^[[F"   end-of-line
+bindkey     "^[[3~"  delete-char
+bindkey     ";5C" forward-word
+bindkey     ";5D" backward-word
+bindkey     "^H" backward-kill-word
+bindkey     "5~" kill-word
+
+
+export PATH=$PATH:/var/tmp/context/tex/texmf-linux-64/bin:/var/tmp/context/tex/texmf-linux-64/bin:/opt/cuda/bin:/home/antek/env/bin:/home/antek/go/bin:/home/antek/.cargo/bin:/home/antek/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/opt/cuda/bin:/opt/cuda/nsight_compute:/opt/cuda/nsight_systems/bin:/opt/flutter/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/antek/.local/share/JetBrains/Toolbox/scripts:/home/antek/.cargo/bin:/home/antek/go/bin:/home/antek/development/flutter/bin:/home/antek/.pub-cache/bin:/home/antek/programowanie/szkola/build:/home/antek/programowanie/TenAPI/Protobuf/bin:/home/antek/.krew/bin:/home/antek/.nexustools
 bindkey "^\\" "pkill -9 !!:0"
 
 autoload -Uz compinit && compinit

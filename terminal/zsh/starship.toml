@@ -4,8 +4,8 @@
 #
 
 
-format = "$directory$character"
-right_format = "$git_branch$git_status $all"
+format = "$username$hostname$directory$character"
+right_format = "$git_branch$git_status $python $rust $memory_usage"
 
 [character]
 success_symbol = " [❯](bold green)"
@@ -15,9 +15,15 @@ error_symbol = " [❯](bold red)"
 format = "[$path]($style)"
 style = "cyan"
 truncate_to_repo = false
-truncation_length = 4
+truncation_length = 3
 truncation_symbol = "…/"
 read_only = " "
+
+[memory_usage]
+disabled = false
+threshold = 80
+symbol = ' '
+style = 'bold dimmed green'
 
 [git_branch]
 format = "[$symbol](green) [$branch]($style) "
