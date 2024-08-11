@@ -1,8 +1,10 @@
-pacman -S zsh cargo
+sudo pacman -S zsh cargo cmake
 
 cargo install starship
 
-ln .zshrc ~/.zshrc
-ln starship.toml ~/.config/starship.toml
+cp .zshrc ~/
+cp starship.toml ~/.config/
+cp .zsh_plugins.txt ~/
+touch ~/.env
 
-curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
+curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
