@@ -21,6 +21,7 @@ case `uname` in
     alias ls='ls -F'
     ;;
 'FreeBSD')
+    export TERM=ansi
     ;;
 'Darwin')
     ulimit -n 2048
@@ -54,7 +55,7 @@ setopt AUTOCD
 #ZSH_THEME="robbyrussell"
 #plugins=(git)
 #source $ZSH/oh-my-zsh.sh
-
+export CHROME_EXECUTABLE=/usr/bin/firefox
 export PATH="$PATH:/home/antek/development/flutter/bin" 
 export EDITOR='nvim'
 export LC_ALL="C.UTF-8"
@@ -64,11 +65,12 @@ export MAILDIR=${HOME}/Mail/inbox/
 export MAIL=$MAILDIR
 export LESSCHARSET=utf-8
 export PAGER=less
-export JAVA_HOME="/home/antek/.local/share/JetBrains/Toolbox/apps/AndroidStudio/ch-0/221.6008.13.2211.9619390/jbr/" 
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 export MultiMC=/home/antek/.local/share/multimc/MultiMC
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 export PATH="$PATH":"$HOME/programowanie/szkola/build"
 export PATH="$PATH":"$HOME/programowanie/TenAPI/Protobuf/bin"
+export PATH="$PATH":"$HOME/.local/bin"
 
 bindkey -e
 bindkey "^U" vi-kill-line
@@ -129,4 +131,6 @@ bindkey "^\\" "pkill -9 !!:0"
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
+export BROWSER='/usr/bin/firefox'
+source .env
+alias kys="shutdown now"
