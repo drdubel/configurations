@@ -56,6 +56,10 @@ new_window pixel 1
 gaps inner 6
 gaps outer 3
 
+# turn on light
+bindsym XF86Open exec "source ~/.env; mosquitto_pub -h 192.168.3.10 -t /switch/1/cmd -u switch1-wifi -P $MQTT_PASSWORD -m 'e1'"
+bindsym Shift+XF86Open exec "source ~/.env; mosquitto_pub -h 192.168.3.10 -t /switch/1/cmd -u switch1-wifi -P $MQTT_PASSWORD -m 'e0'"
+
 # scratchpad
 bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
@@ -321,27 +325,26 @@ set $ws10 "10"
 # use workspaces on different displays:
 # where you have to replace VGA-0/HDMI-0 with the names for your displays
 # you can get from xrandr command
-workspace $ws1 output DP-0
-workspace $ws2 output DP-4.8
-workspace $ws3 output DP-4.8
-workspace $ws4 output DP-4.8
-workspace $ws10 output DP-0
+workspace $ws1 output primary
+workspace $ws2 output non-primary
+workspace $ws3 output non-primary
+workspace $ws4 output non-primary
+workspace $ws10 output primary
 
 # bind program to workspace and focus to them on startup:
-assign [class="code"] $ws1
+assign [class="Code"] $ws1
 assign [class="firefox"] $ws1
-assign [class="alacritty"] $ws5
+assign [class="Alacritty"] $ws2
 assign [class="tidal-hifi"] $ws3
-assign [class="spotify-launcher"] $ws3
+assign [class="spotify"] $ws3
 assign [class="discord"] $ws4
 assign [class="steam"] $ws10
 assign [class="multimc"] $ws10
 
 # automatic set focus new window if it opens on another workspace than the current:
-for_window [class=(?i)firefox] focus
-for_window [class=Thunar] focus
-for_window [class=Thunderbird] focus
-for_window [class=TelegramDesktop] focus
+for_window [class=firefox] focus
+for_window [class=Alacritty] focus
+for_window [class=Code] focus
 
 ##############
 # compositor #

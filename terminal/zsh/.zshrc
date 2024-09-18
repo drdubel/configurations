@@ -34,8 +34,8 @@ case `uname` in
 esac
 
 HISTFILE=${HOME}/.zsh_history
-HISTSIZE=25000
-SAVEHIST=25000
+HISTSIZE=25000000000
+SAVEHIST=25000000000
 DIRSTACKSIZE=10
 
 setopt HIST_IGNORE_DUPS
@@ -132,5 +132,5 @@ bindkey "^\\" "pkill -9 !!:0"
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 export BROWSER='/usr/bin/firefox'
-source .env
+source ~/.env
 alias kys="shutdown now"
