@@ -57,8 +57,8 @@ gaps inner 6
 gaps outer 3
 
 # turn on light
-bindsym XF86Open exec "source ~/.env; mosquitto_pub -h 192.168.3.10 -t /switch/1/cmd -u switch1-wifi -P $MQTT_PASSWORD -m 'e1'"
-bindsym Shift+XF86Open exec "source ~/.env; mosquitto_pub -h 192.168.3.10 -t /switch/1/cmd -u switch1-wifi -P $MQTT_PASSWORD -m 'e0'"
+bindsym XF86Open exec "source ~/.env; mosquitto_pub -h $MQTT_ADDR -t $MQTT_CHANNEL -u $MQTT_USER -P $MQTT_PASSWORD -m 'e1'"
+bindsym Shift+XF86Open exec "source ~/.env; mosquitto_pub -h $MQTT_ADDR -t $MQTT_CHANNEL -u $MQTT_USER -P $MQTT_PASSWORD -m 'e0'"
 
 # scratchpad
 bindsym $mod+minus scratchpad show
@@ -326,9 +326,9 @@ set $ws10 "10"
 # where you have to replace VGA-0/HDMI-0 with the names for your displays
 # you can get from xrandr command
 workspace $ws1 output primary
-workspace $ws2 output non-primary
-workspace $ws3 output non-primary
-workspace $ws4 output non-primary
+workspace $ws2 output nonprimary
+workspace $ws3 output nonprimary
+workspace $ws4 output nonprimary
 workspace $ws10 output primary
 
 # bind program to workspace and focus to them on startup:
