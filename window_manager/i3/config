@@ -47,14 +47,15 @@ workspace_layout default
 ##############################
 
 #border indicator on windows:
-new_window pixel 1
+#new_window pixel 0
+for_window [class="^.*"] border pixel 1
 
 # thin borders
 # hide_edge_borders both
 
 # Set inner/outer gaps
-gaps inner 6
-gaps outer 3
+gaps inner 0
+gaps outer 0
 
 # turn on light
 bindsym XF86Open exec "source ~/.env; mosquitto_pub -h $MQTT_ADDR -t $MQTT_CHANNEL -u $MQTT_USER -P $MQTT_PASSWORD -m 'e1'"
@@ -181,7 +182,7 @@ bindsym $mod+w sticky toggle
 ######################################
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec ghostty
 
 # kill focused window
 bindsym $mod+q kill
@@ -334,7 +335,7 @@ workspace $ws10 output primary
 # bind program to workspace and focus to them on startup:
 assign [class="Code"] $ws1
 assign [class="firefox"] $ws1
-assign [class="Alacritty"] $ws2
+assign [class="ghostty"] $ws2
 assign [class="tidal-hifi"] $ws3
 assign [class="spotify"] $ws3
 assign [class="discord"] $ws4
@@ -343,8 +344,13 @@ assign [class="multimc"] $ws10
 
 # automatic set focus new window if it opens on another workspace than the current:
 for_window [class=firefox] focus
-for_window [class=Alacritty] focus
+for_window [class=ghostty] focus
 for_window [class=Code] focus
+for_window [title="float"] floating enable
+for_window [title="float"] resize set 1200 1200
+for_window [title="^Figure"] floating enable
+for_window [title="^Figure"] resize set 1200 1200
+
 
 ##############
 # compositor #
@@ -389,6 +395,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # https://github.com/jceb/dex
 #exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
 exec --no-startup-id dex --autostart --environment i3
+
+exec --no-startup-id blueman-applet
 
 # start welcome app
 #exec --no-startup-id sh /usr/share/endeavouros/scripts/welcome --startdelay=3 
@@ -529,7 +537,7 @@ bar {
 #	    	i3bar_command i3bar --transparency
 # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
 # reference: https://i3wm.org/docs/userguide.html#_tray_output
-		    #tray_output primary
+		    tray_output primary
 		    tray_padding 0
 
 # When strip_workspace_numbers is set to yes,
