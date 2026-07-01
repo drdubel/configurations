@@ -1,136 +1,133 @@
-# -*- zshrc -*-
+#ource /Users/antek/env/bin/activate
+#-*- zshrc -*-
 # Antoni Suszko
 # $Id: .zshrc,v 1.0 2022/10/01 16:26 drdubel
 #
+# ~/.zshrc
 
-case `uname` in
-'SunOS')
-    PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/ccs/bin:/usr/ucb:/usr/local/bin:/usr/local/sbin
-    MANPATH=/usr/share/man:/usr/local/man:/usr/local/share/man:/usr/sfw/share/man:/usr/sfw/esp/man:/usr/perl5/5.6.1/man:/usr/openwin/share/man:/usr/dt/share/man:/usr/j2se/man:/usr/java1.2/man
-    TERM=xtermc
-    alias screen='TERM=screen screen'
-    SCREENDIR=$HOME/.screen
-    export PATH MANPATH TERM SCREENDIR
-    ;;
-'HP-UX')
-    TERM=xtermc
-    export TERM
-    ;;
-'Linux')
-    #unalias ls
-    alias ls='ls -F'
-    ;;
-'FreeBSD')
-    export TERM=ansi
-    ;;
-'Darwin')
+# ---------------------------------------------------------------------------
+# OS-specific setup
+# ---------------------------------------------------------------------------
+case "$(uname)" in
+  Darwin)
     ulimit -n 2048
     alias mtr="sudo /usr/local/sbin/mtr"
-    test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integration.zsh || true
+    [[ -f "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+    if [[ -f /opt/homebrew/opt/antidote/share/antidote/antidote.zsh ]]; then
+      source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+      antidote load
+    fi
     ;;
-*)
+  Linux)
+    alias ls='ls -F'
+    export CHROME_EXECUTABLE=/usr/bin/firefox
+    export BROWSER='/usr/bin/firefox'
+    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+    export MultiMC="$HOME/.local/share/multimc/MultiMC"
+
+    export PATH="$PATH:/opt/cuda/bin"
+    export LD_LIBRARY_PATH="/opt/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+    export PATH="$PATH:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/opt/android-sdk/tools/bin"
+    export PATH="$PATH:/opt/flutter/bin"
+    export PATH="$PATH:$HOME/development/flutter/bin"
+    export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
+    export PATH="$PATH:$HOME/.nexustools"
     ;;
 esac
 
-HISTFILE=${HOME}/.zsh_history
-HISTSIZE=25000000000
-SAVEHIST=25000000000
+# ---------------------------------------------------------------------------
+# History
+# ---------------------------------------------------------------------------
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=250000
+SAVEHIST=250000
 DIRSTACKSIZE=10
 
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt INC_APPEND_HISTORY
+
+# ---------------------------------------------------------------------------
+# Shell options
+# ---------------------------------------------------------------------------
 setopt AUTO_PUSHD
 setopt RMSTARSILENT
 setopt NOBEEP
 setopt AUTOCD
+setopt AUTOLIST
 
-
-
-# oh my zsh config
-
-#export ZSH="$HOME/.oh-my-zsh"
-#ZSH_THEME="robbyrussell"
-#plugins=(git)
-#source $ZSH/oh-my-zsh.sh
-export CHROME_EXECUTABLE=/usr/bin/firefox
-export PATH="$PATH:/home/antek/development/flutter/bin" 
+# ---------------------------------------------------------------------------
+# Environment / PATH (common to both machines)
+# ---------------------------------------------------------------------------
 export EDITOR='nvim'
+export PAGER=less
+export LESSCHARSET=utf-8
 export LC_ALL="C.UTF-8"
 export LANG="C.UTF-8"
 export LC_CTYPE="pl_PL.UTF-8"
-export MAILDIR=${HOME}/Mail/inbox/
-export MAIL=$MAILDIR
-export LESSCHARSET=utf-8
-export PAGER=less
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-export MultiMC=/home/antek/.local/share/multimc/MultiMC
-export PATH="$PATH":"$HOME/.pub-cache/bin"
-export PATH="$PATH":"$HOME/programowanie/szkola/build"
-export PATH="$PATH":"$HOME/programowanie/TenAPI/Protobuf/bin"
-export PATH="$PATH":"$HOME/.local/bin"
-
-bindkey -e
-bindkey "^U" vi-kill-line
-
-export GOPATH=$HOME/go
-export PATH=$HOME/env/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/local/bin:$PATH:$HOME/.krew/bin
+export MAILDIR="$HOME/Mail/inbox/"
+export MAIL="$MAILDIR"
+export XDG_CONFIG_HOME="$HOME/.config"
+export VAULT_CLI_NO_COLOR=1
 export FZF_DEFAULT_OPTS="--color=light"
-export XDG_CONFIG_HOME=$HOME/.config
-export PATH="/opt/cuda/bin${PATH:+:${PATH}}"
-export LD_LIBRARY_PATH="/opt/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
-setopt AUTOLIST
+export GOPATH="$HOME/go"
+export PATH="$HOME/env/bin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/local/bin:$HOME/.krew/bin:$PATH"
+export PATH="$PATH:$HOME/.pub-cache/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
+# ---------------------------------------------------------------------------
 # Aliases
-
+# ---------------------------------------------------------------------------
 alias l='ls -hlAt'
 alias lr='ls -hlArt'
 alias vi=nvim
 alias vim=nvim
+alias kys="shutdown now"
 
-export VAULT_CLI_NO_COLOR=1
-
-# source <("$HOME/.cargo/bin/starship" init zsh --print-full-init)
+# ---------------------------------------------------------------------------
 # Completion
+# ---------------------------------------------------------------------------
 autoload -Uz compinit
 autoload -U +X bashcompinit
 compinit
 bashcompinit
-complete -F __start_kubectl k
-complete -o nospace -C terraform terraform
+
 zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 fpath+=~/.zfunc
 
-source <(antibody init)
+command -v kubectl >/dev/null && complete -F __start_kubectl k
+command -v terraform >/dev/null && complete -o nospace -C terraform terraform
 
-antibody bundle < ~/.zsh_plugins.txt
-eval "$(starship init zsh)"
-bindkey -s '^ ' 'clear^M'
-
-export PATH=$PATH:/home/antek/.nexustools
-
-#export NVM_DIR="$HOME/.config/nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# ---------------------------------------------------------------------------
+# Key bindings
+# ---------------------------------------------------------------------------
 bindkey -e
-
-bindkey     "^[[H"   beginning-of-line
-bindkey     "^[[F"   end-of-line
-bindkey     "^[[3~"  delete-char
-bindkey     ";5C" forward-word
-bindkey     ";5D" backward-word
-bindkey     "^H" backward-kill-word
-bindkey     "5~" kill-word
-
-
-export PATH=$PATH:/var/tmp/context/tex/texmf-linux-64/bin:/var/tmp/context/tex/texmf-linux-64/bin:/opt/cuda/bin:/home/antek/env/bin:/home/antek/go/bin:/home/antek/.cargo/bin:/home/antek/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/opt/android-sdk/platform-tools:/opt/android-sdk/tools:/opt/android-sdk/tools/bin:/opt/cuda/bin:/opt/cuda/nsight_compute:/opt/cuda/nsight_systems/bin:/opt/flutter/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/antek/.local/share/JetBrains/Toolbox/scripts:/home/antek/.cargo/bin:/home/antek/go/bin:/home/antek/development/flutter/bin:/home/antek/.pub-cache/bin:/home/antek/programowanie/szkola/build:/home/antek/programowanie/TenAPI/Protobuf/bin:/home/antek/.krew/bin:/home/antek/.nexustools
+bindkey "^U" vi-kill-line
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
+bindkey ";5C" forward-word
+bindkey ";5D" backward-word
+bindkey "^H" backward-kill-word
+bindkey "5~" kill-word
+bindkey -s '^ ' 'clear^M'
 bindkey "^\\" "pkill -9 !!:0"
 
-autoload -Uz compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-export BROWSER='/usr/bin/firefox'
-source ~/.env
-alias kys="shutdown now"
+# ---------------------------------------------------------------------------
+# Prompt
+# ---------------------------------------------------------------------------
+eval "$(starship init zsh)"
+
+# ---------------------------------------------------------------------------
+# Local/machine-specific overrides
+# ---------------------------------------------------------------------------
+[[ -f ~/.env ]] && source ~/.env
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export ANDROID_HOME="/Users/antek/Library/Android/sdk"
+export ANDROID_SDK_ROOT="/Users/antek/Library/Android/sdk"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
